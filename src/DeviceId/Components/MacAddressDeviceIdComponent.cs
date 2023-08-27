@@ -30,7 +30,7 @@ public class MacAddressDeviceIdComponent : IDeviceIdComponent
     public string GetValue()
     {
         var values = NetworkInterface.GetAllNetworkInterfaces()
-            .Where(x => !_excludeWireless || x.NetworkInterfaceType != NetworkInterfaceType.Wireless80211)
+            .Where(x => x.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
             .Select(x => x.GetPhysicalAddress().ToString())
             .Where(x => x != "000000000000")
             .Select(x => MacAddressFormatter.FormatMacAddress(x))
